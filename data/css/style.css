@@ -2,53 +2,47 @@
  * style.css                   *
 \*******************************/
 
-/* Layout Organization */
+/*******************************\
+ * Page Layout Organization    *
+\*******************************/
 #site_container{
-    height: 900px;
+    height: 1200px;
     width: 100%;
 }
-
 #main_left_container{
     border-right: #ED2960 1px solid;
     float:left;
     height: 99%;
     width: 13%;
 }
-
 #main_left_container_top{
     background: url(../img/unlined_paper.png) repeat;
     border-bottom: #EBEBEB 1px solid;
     top: 0px;
-    height: 19%;
+    height: 14%;
 }
-
 #main_left_container_body{
     background: url(../img/lined_paper.png) repeat;
-    height: 79%; 
+    height: 84%; 
 }
-
 #content_container{
     float: left;
     height: 99%;
     width: 82%;
 }
-
 #content_top{
     background: url(../img/unlined_paper.png) repeat;
     border-bottom: #EBEBEB 1px solid;
     top: 0px;
-    height: 19%;
+    height: 14%;
 }
-
 #content{
     background: url(../img/lined_paper.png) repeat;
-    height: 79%;
+    height: 84%;
 }
-
 .clear{
     clear:both;
 }
-
 /* Page Holes */
 .page_hole{
     background: url(../img/hole.png) no-repeat;
@@ -56,18 +50,111 @@
     position: relative;
     width: 50px;
 }
-
 #top_page_hole{
     bottom: 10%;
     right: 30%;
 }
-
 #middle_page_hole{
     top: 50%;
     right: 30%;
 }
-
 #bottom_page_hole{
     bottom: 10%;
     right: 30%;
+}
+
+/*******************************\
+ * Actual Page Content         *
+\*******************************/
+#top_content{
+    height: 39%;
+    position: relative;
+    width: 98%;
+}
+#bottom_content{
+    height: 59%;
+    position: relative;
+}
+#footer_container{
+
+}
+
+/*******************************\
+ * top_content divisions       *
+\*******************************/
+#top_content_left_container{
+    float:left;
+    height: 99%;
+    width: 19%;
+}
+#top_content_left_container_year_container{
+    height: 14%;
+    margin-left: 4px;
+    margin-top: 2px;
+}
+    .custom_select{
+        background: url(../img/select_arrow2.png) no-repeat right;
+        border: 1px solid #ccc;
+        font-size: 1.75em;
+        height: 99%;
+        overflow: hidden;
+        padding: 1px;
+        width: 99%;
+    }
+#top_content_left_container_name_container{
+    border: 1px solid #ccc;
+    height: 84%;
+    margin-left: 2px;
+    padding: 5px;
+}
+    #male_name_container{
+        height: 49%;
+        width: 99%;
+    }
+        #male_name_container_title{
+            font-size: .69em;
+            height: 19%;
+            text-align: center;
+        }
+        #male_name_container_body{
+            height: 80%;
+        }
+    #female_name_container{
+        height: 49%;
+        width: 99%;
+    }
+        #female_name_container_title{
+            font-size: .69em;
+            height: 19%;
+            text-align: center;
+        }
+        #female_name_container_body{
+            height: 80%;
+        }
+#top_content_right_container{
+    border: 1px solid #ccc;
+    float:left;
+    height: 99%;
+    margin-left: 10px;
+    margin-top: 2px;
+    width: 79%;
+}
+
+/*******************************\
+ * bottom_content divisions    *
+\*******************************/
+#bottom_content_left_container{
+    float:left;
+    height: 99%;
+    width: 19%;
+}
+#bottom_content_main_container{
+    float:left;
+    height: 99%;
+    width: 60%;
+}
+#bottom_content_right_container{
+    float:left;
+    height: 99%;
+    width: 19%;
 }
