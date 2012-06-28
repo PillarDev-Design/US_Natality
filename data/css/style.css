@@ -1,0 +1,73 @@
+/*******************************\
+ * style.css                   *
+\*******************************/
+
+/* Layout Organization */
+#site_container{
+    height: 900px;
+    width: 100%;
+}
+
+#main_left_container{
+    border-right: #ED2960 1px solid;
+    float:left;
+    height: 99%;
+    width: 13%;
+}
+
+#main_left_container_top{
+    background: url(../img/unlined_paper.png) repeat;
+    border-bottom: #EBEBEB 1px solid;
+    top: 0px;
+    height: 19%;
+}
+
+#main_left_container_body{
+    background: url(../img/lined_paper.png) repeat;
+    height: 79%; 
+}
+
+#content_container{
+    float: left;
+    height: 99%;
+    width: 82%;
+}
+
+#content_top{
+    background: url(../img/unlined_paper.png) repeat;
+    border-bottom: #EBEBEB 1px solid;
+    top: 0px;
+    height: 19%;
+}
+
+#content{
+    background: url(../img/lined_paper.png) repeat;
+    height: 79%;
+}
+
+.clear{
+    clear:both;
+}
+
+/* Page Holes */
+.page_hole{
+    background: url(../img/hole.png) no-repeat;
+    height: 50px;
+    position: relative;
+    width: 50px;
+}
+
+#top_page_hole{
+    bottom: 10%;
+    right: 30%;
+}
+
+#middle_page_hole{
+    top: 50%;
+    right: 30%;
+}
+
+#bottom_page_hole{
+    bottom: 10%;
+    right: 30%;
+}
