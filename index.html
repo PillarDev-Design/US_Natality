@@ -3,6 +3,12 @@
     <head>
         <meta charset='UTF-8'>
         <title>US Natality (Birth Rates)</title>
+        <!-- Mootools -->
+        <script type='text/javascript' src='/data/js/mootools.js'></script>
+        <!-- D3 -->
+        <script type='text/javascript' src='/data/js/d3.js'></script>
+        <!-- Local JS File -->
+        <script type='text/javascript' src='/data/js/us_natality.js'></script>
         <link href='/data/css/style.css' rel='stylesheet' type='text/css' />
     </head>
     <body>
@@ -17,7 +23,11 @@
                 </div> <!-- END main_left_container_body -->
             </div> <!-- END main_left_container -->
             <div id='content_container'>
-                <div id='content_top'></div>
+                <div id='content_top'>
+                    <div id='content_top_title'>
+                        United States Natality (Birth Rates)
+                    </div>
+                </div>
                 <div id='content'>
                     <div id='top_content'>
                         <div id='top_content_left_container'>
@@ -45,13 +55,31 @@
                                 </div>
                             </div> <!-- END top_content_left_container_name_container -->
                         </div> <!-- END top_content_left_container -->
-                        <div id='top_content_right_container'></div>
+                        <div id='top_content_right_container'>
+                        
+                        </div>
                         <div class='clear'></div>
                     </div> <!-- END top_content -->
                     <div id='bottom_content'>
-                        <div id='bottom_content_left_container'></div>
-                        <div id='bottom_content_main_container'></div>
-                        <div id='bottom_content_right_container'></div>
+                        <div id='bottom_content_left_container'>
+                            <div id='bottom_content_left_container_title'>
+
+                            </div>
+                            <div id='bottom_content_left_container_body'>
+
+                            </div>
+                        </div>
+                        <div id='bottom_content_main_container'>
+                        
+                        </div>
+                        <div id='bottom_content_right_container'>
+                            <div id='bottom_content_right_container_title'>
+
+                            </div>
+                            <div id='bottom_content_right_container_body'>
+
+                            </div>
+                        </div>
                         <div class='clear'></div>
                     </div> <!-- END bottom_content -->
                     <div id='footer_container'>
@@ -61,11 +89,8 @@
                 <div class='clear'></div>
             </div> <!-- END content_container -->
         </div> <!-- END site_container -->
-        <!-- D3 -->
-        <script type='text/javascript'
-            src='/data/js/d3.js'></script>
-        <!-- Local JS File -->
-        <script type='text/javascript'
-            src='/data/js/us_natality.js'></script>
+        <script type='text/javascript'>
+            map_init();
+        </script>
     </body>
 </html>

@@ -36,6 +36,11 @@
     top: 0px;
     height: 14%;
 }
+    #content_top_title{
+        bottom: 0px;
+        left: 20px;
+        position: relative;
+    }
 #content{
     background: url(../img/lined_paper.png) repeat;
     height: 84%;
@@ -89,7 +94,7 @@
 }
 #top_content_left_container_year_container{
     height: 14%;
-    margin-left: 4px;
+    margin-left: 5px;
     margin-top: 2px;
 }
     .custom_select{
@@ -139,22 +144,53 @@
     margin-top: 2px;
     width: 79%;
 }
+    /* MAP D3 etc. */
+    .map_background{
+        fill: none;
+        pointer-events: all;
+    }
+    #map_states{
+        fill: #aaa;
+        stroke: #fff;
+        stroke-width: 1.5px;
+    }
+    #map_states path:hover{
+        stroke: white;
+    }
 
 /*******************************\
  * bottom_content divisions    *
 \*******************************/
 #bottom_content_left_container{
+    border: 1px solid #ccc;
     float:left;
     height: 99%;
-    width: 19%;
+    margin: 3px;
+    width: 18%;
 }
+    #bottom_content_left_container_title{
+
+    }
+    #bottom_content_left_container_body{
+
+    }
 #bottom_content_main_container{
+    border: 1px solid #ccc;
     float:left;
     height: 99%;
-    width: 60%;
+    margin: 3px;
+    width: 59%;
 }
 #bottom_content_right_container{
+    border: 1px solid #ccc;
     float:left;
     height: 99%;
-    width: 19%;
+    margin: 3px;
+    width: 18%;
 }
+    #bottom_content_right_container_title{
+
+    }
+    #bottom_content_right_container_body{
+
+    }
