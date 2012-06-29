@@ -150,7 +150,6 @@
         pointer-events: all;
     }
     #map_states{
-        fill: #aaa;
         stroke: #fff;
         stroke-width: 1.5px;
     }

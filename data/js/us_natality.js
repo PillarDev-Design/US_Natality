@@ -1,7 +1,20 @@
 // us_natality.js
 
-// Map
+var state_births_array;
+// state_births_array['2007-2009'][0]['state'] = "Alabama"
+
+var map_states_array;
+// map_states_array['features'][0]['properties']['name'] = "Alabama"
+
+// Map Functions
 function map_init(){
+    // Load the state_births data
+    d3.json("data/json/state_births.json", function(json){
+        state_births_array = json;
+    });
+    
+    var state_color = d3.scale.quantize().range(["#660000", "#663300", "#666600", "#669900", "#66CC00"]);
+
     // Use Mootools to grab the DIV and extract the width and height.
     // Then, remove the last two characters off of the string.
     //      Ex. (500px -> 500)
@@ -28,18 +41,16 @@ function map_init(){
         .attr("height", map_height);
 
     var states = svg.append("g")
-        .attr("transform", "traslate(" + map_width / 2 + "," + map_height / 2 + ")")
         .append("g")
         .attr("id", "map_states");
 
     d3.json("data/json/us-states.json", function(json){
+        map_states_array = json;
+
         states.selectAll("path")
-        .data(json.features)
-        .enter()
-        .append("path")
-        .attr("d", path)
-    });
-    d3.json("data/json/state_births.json", function(json){
-        console.log(json);
+            .data(json.features)
+            .enter()
+            .append("path")
+            .attr("d", path);
     });
 }

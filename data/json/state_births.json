@@ -2,37 +2,37 @@
     "2007-2009":[
         {
             "state":"Alabama",
-            "state_code":01,
+            "state_code":1,
             "births":62475
         },
         {
             "state":"Alaska",
-            "state_code":02,
+            "state_code":2,
             "births":11324
         },
         {
             "state":"Arizona",
-            "state_code":04,
+            "state_code":4,
             "births":92798
         },
         {
             "state":"Arkansas",
-            "state_code":05,
+            "state_code":5,
             "births":39808
         },
         {
             "state":"California",
-            "state_code":06,
+            "state_code":6,
             "births":527020
         },
         {
             "state":"Colorado",
-            "state_code":08,
+            "state_code":8,
             "births":68628
         },
         {
             "state":"Connecticut",
-            "state_code":09,
+            "state_code":9,
             "births":38896
         },
         {
