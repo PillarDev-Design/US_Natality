@@ -1,0 +1,19 @@
+#******************************************************************************#
+# Christopher Nabors (Github - PillarDev-Design)                               #
+# Project: US_Natality                                                         #
+#------------------------------------------------------------------------------#
+# (Instructions)                                                               #
+# 1) >>> python -m SimpleHTTPServer 8080                                       #
+# 2) localhost:8080/                                                           #
+# 3) ???                                                                       #
+# 4) Profit                                                                    #
+#------------------------------------------------------------------------------#
+# (Goal) Visual.ly hosted contest (Health Data Visualization Contest)          #
+#   Using data retrieved from HealthData.gov, contestants are free to design   #
+# visualizations based on said data.                                           #
+#                                                                              #
+# (Method)                                                                     #
+#   I will be using US Natality (Birth Rates) extracted from the CDC. The web  #
+# address is (wonder.cdc.gov/natality.html). This was a link from the list of  #
+# possible data set choices.                                                   #
+#******************************************************************************#

@@ -1,19 +1,44 @@
-// us_natality.js
+/******************************************************************************\
+| us_natality.js                                                               |
+|------------------------------------------------------------------------------|
+| Contains all the JavaScript code for the US_Natality project.                |
+\******************************************************************************/
 
+/******************************************************************************\
+| Global Variables                                                             |
+\******************************************************************************/
 var state_births_array;
-// state_births_array['2007-2009'][0]['state'] = "Alabama"
-
+    // This variable will contain data extracted from the state_births.json
+    //  file. Includes (state, births, and state_code).
+    // Accessing Example - 
+    //      ex.state_births_array['2007-2009'][0]['state'] = "Alabama"
 var map_states_array;
-// map_states_array['features'][0]['properties']['name'] = "Alabama"
+    // This variable will contain data extracted from the us-states.json file.
+    //  The features from this file will allow d3 to draw a map of the US.
+    // Accessing Example -
+    //      map_states_array['features'][0]['properties']['name'] = "Alabama"
+var color_holder;
+    // This variable is used as a placeholder when the states are being applied
+    //      their color based on a domain of state births extracted from the
+    //      state_births_array.
 
-// Map Functions
+
+/******************************************************************************\
+| Global Functions                                                             |
+\******************************************************************************/
+function retrieve_year(){
+    // This function can be called to return a string of the current year
+    //      set selected. Ex - '2007-2009'.
+    return ($('year_selector').value);
+}
 function map_init(){
+    // Upon initial loading of the map, this function will call and load the
+    //      default values to active the top US map.
+
     // Load the state_births data
     d3.json("data/json/state_births.json", function(json){
         state_births_array = json;
     });
-    
-    var state_color = d3.scale.quantize().range(["#660000", "#663300", "#666600", "#669900", "#66CC00"]);
 
     // Use Mootools to grab the DIV and extract the width and height.
     // Then, remove the last two characters off of the string.
@@ -43,6 +68,12 @@ function map_init(){
     var states = svg.append("g")
         .append("g")
         .attr("id", "map_states");
+    
+    // Loaded with the low/high domain of the 2007-2009 births values.
+    var state_color = d3.scale
+        .linear()
+        .domain([6110, 527020])
+        .range(['brown','steelblue']);
 
     d3.json("data/json/us-states.json", function(json){
         map_states_array = json;
@@ -51,6 +82,49 @@ function map_init(){
             .data(json.features)
             .enter()
             .append("path")
+            .style("fill", function(d) {
+                for(var i=0; i<state_births_array['2007-2009'].length; i++){
+                    if(d.properties.name === state_births_array['2007-2009'][i]['state']){
+                        color_holder =  state_color(state_births_array['2007-2009'][i]['births']);
+                    }
+                }
+                return color_holder;
+                })
             .attr("d", path);
     });
+}
+function populate_names(){
+    // www.ssa.gov/oact/babynames/#ht=1
+    var seven_to_nine_male = [
+        'Jacob',
+        'Michael',
+        'Ethan',
+        'Joshua',
+        'Daniel'];
+    var seven_to_nine_female = [
+        'Isabella',
+        'Emma',
+        'Emily',
+        'Olivia',
+        'Ava'];
+    // NOTE: OPTIMIZE!
+     $('male_name_container_body').innerHTML = "<ul>" +
+         "<li>" + seven_to_nine_male[0] + "</li>" +
+         "<li>" + seven_to_nine_male[1] + "</li>" +
+         "<li>" + seven_to_nine_male[2] + "</li>" +
+         "<li>" + seven_to_nine_male[3] + "</li>" +
+         "<li>" + seven_to_nine_male[4] + "</li></ul>";
+
+     $('female_name_container_body').innerHTML = "<ul>" +
+         "<li>" + seven_to_nine_female[0] + "</li>" +
+         "<li>" + seven_to_nine_female[1] + "</li>" +
+         "<li>" + seven_to_nine_female[2] + "</li>" +
+         "<li>" + seven_to_nine_female[3] + "</li>" +
+         "<li>" + seven_to_nine_female[4] + "</li></ul>";
+}
+
+// Main Function
+function central_init(){
+    map_init();
+    populate_names();
 }
