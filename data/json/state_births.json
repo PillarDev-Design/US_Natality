@@ -3,257 +3,359 @@
         {
             "state":"Alabama",
             "state_code":1,
-            "births":62475
+            "births":62475,
+            "male":31750,
+            "female":30725
         },
         {
             "state":"Alaska",
             "state_code":2,
-            "births":11324
+            "births":11324,
+            "male":5965,
+            "female":5359
         },
         {
             "state":"Arizona",
             "state_code":4,
-            "births":92798
+            "births":92798,
+            "male":47436,
+            "female":45362
         },
         {
             "state":"Arkansas",
             "state_code":5,
-            "births":39808
+            "births":39808,
+            "male":20499,
+            "female":19309
         },
         {
             "state":"California",
             "state_code":6,
-            "births":527020
+            "births":527020,
+            "male":269949,
+            "female":257071
         },
         {
             "state":"Colorado",
             "state_code":8,
-            "births":68628
+            "births":68628,
+            "male":35180,
+            "female":33448
         },
         {
             "state":"Connecticut",
             "state_code":9,
-            "births":38896
+            "births":38896,
+            "male":19835,
+            "female":19061
         },
         {
             "state":"Delaware",
             "state_code":10,
-            "births":11559
+            "births":11559,
+            "male":5900,
+            "female":5659
         },
         {
             "state":"District of Columbia",
             "state_code":11,
-            "births":9040
+            "births":9040,
+            "male":4619,
+            "female":4421
         },
         {
             "state":"Florida",
             "state_code":12,
-            "births":221394
+            "births":221394,
+            "male":113151,
+            "female":108243
         },
         {
             "state":"Georgia",
             "state_code":13,
-            "births":141377
+            "births":141377,
+            "male":72349,
+            "female":69028
         },
         {
             "state":"Hawaii",
             "state_code":15,
-            "births":18887
+            "births":18887,
+            "male":9672,
+            "female":9215
         },
         {
             "state":"Idaho",
             "state_code":16,
-            "births":23737
+            "births":23737,
+            "male":12189,
+            "female":11548
         },
         {
             "state":"Illinois",
             "state_code":17,
-            "births":171163
+            "births":171163,
+            "male":87753,
+            "female":83410
         },
         {
             "state":"Indiana",
             "state_code":18,
-            "births":86673
+            "births":86673,
+            "male":44204,
+            "female":42469
         },
         {
             "state":"Iowa",
             "state_code":19,
-            "births":39701
+            "births":39701,
+            "male":20279,
+            "female":19422
         },
         {
             "state":"Kansas",
             "state_code":20,
-            "births":41396
+            "births":41396,
+            "male":21107,
+            "female":20289
         },
         {
             "state":"Kentucky",
             "state_code":21,
-            "births":57551
+            "births":57551,
+            "male":29613,
+            "female":27938
         },
         {
             "state":"Louisiana",
             "state_code":22,
-            "births":64973
+            "births":64973,
+            "male":33145,
+            "female":31828
         },
         {
             "state":"Maine",
             "state_code":23,
-            "births":13470
+            "births":13470,
+            "male":6932,
+            "female":6538
         },
         {
             "state":"Maryland",
             "state_code":24,
-            "births":75059
+            "births":75059,
+            "male":38193,
+            "female":36866
         },
         {
             "state":"Massachusetts",
             "state_code":25,
-            "births":75016
+            "births":75016,
+            "male":38555,
+            "female":36461
         },
         {
             "state":"Michigan",
             "state_code":26,
-            "births":117294
+            "births":117294,
+            "male":60161,
+            "female":57133
         },
         {
             "state":"Minnesota",
             "state_code":27,
-            "births":70646
+            "births":70646,
+            "male":36324,
+            "female":34322
         },
         {
             "state":"Mississippi",
             "state_code":28,
-            "births":42901
+            "births":42901,
+            "male":21926,
+            "female":20975
         },
         {
             "state":"Missouri",
             "state_code":29,
-            "births":78905
+            "births":78905,
+            "male":40727,
+            "female":38178
         },
         {
             "state":"Montana",
             "state_code":30,
-            "births":12257
+            "births":12257,
+            "male":6248,
+            "female":6009
         },
         {
             "state":"Nebraska",
             "state_code":31,
-            "births":26936
+            "births":26936,
+            "male":13833,
+            "female":13103
         },
         {
             "state":"Nevada",
             "state_code":32,
-            "births":37612
+            "births":37612,
+            "male":19323,
+            "female":18289
         },
         {
             "state":"New Hampshire",
             "state_code":33,
-            "births":13377
+            "births":13377,
+            "male":6853,
+            "female":6524
         },
         {
             "state":"New Jersey",
             "state_code":34,
-            "births":110331
+            "births":110331,
+            "male":56631,
+            "female":53700
         },
         {
             "state":"New Mexico",
             "state_code":35,
-            "births":29000
+            "births":29000,
+            "male":14779,
+            "female":14221
         },
         {
             "state":"New York",
             "state_code":36,
-            "births":248110
+            "births":248110,
+            "male":127233,
+            "female":120877
         },
         {
             "state":"North Carolina",
             "state_code":37,
-            "births":126845
+            "births":126845,
+            "male":65007,
+            "female":61838
         },
         {
             "state":"North Dakota",
             "state_code":38,
-            "births":9001
+            "births":9001,
+            "male":4583,
+            "female":4418
         },
         {
             "state":"Ohio",
             "state_code":39,
-            "births":144841
+            "births":144841,
+            "male":74081,
+            "female":70760
         },
         {
             "state":"Oklahoma",
             "state_code":40,
-            "births":54553
+            "births":54553,
+            "male":27994,
+            "female":26559
         },
         {
             "state":"Oregon",
             "state_code":41,
-            "births":47132
+            "births":47132,
+            "male":24211,
+            "female":22921
         },
         {
             "state":"Pennsylvania",
             "state_code":42,
-            "births":146434
+            "births":146434,
+            "male":74767,
+            "female":71667
         },
         {
             "state":"Rhode Island",
             "state_code":44,
-            "births":11442
+            "births":11442,
+            "male":5839,
+            "female":5603
         },
         {
             "state":"South Carolina",
             "state_code":45,
-            "births":60620
+            "births":60620,
+            "male":30565,
+            "female":30055
         },
         {
             "state":"South Dakota",
             "state_code":46,
-            "births":11934
+            "births":11934,
+            "male":6072,
+            "female":5862
         },
         {
             "state":"Tennessee",
             "state_code":47,
-            "births":82211
+            "births":82211,
+            "male":42027,
+            "female":40184
         },
         {
             "state":"Texas",
             "state_code":48,
-            "births":401977
+            "births":401977,
+            "male":205060,
+            "female":196917
         },
         {
             "state":"Utah",
             "state_code":49,
-            "births":53887
+            "births":53887,
+            "male":27558,
+            "female":26329
         },
         {
             "state":"Vermont",
             "state_code":50,
-            "births":6110
+            "births":6110,
+            "male":3192,
+            "female":2918
         },
         {
             "state":"Virginia",
             "state_code":51,
-            "births":105059
+            "births":105059,
+            "male":53752,
+            "female":51307
         },
         {
             "state":"Washington",
             "state_code":53,
-            "births":89313
+            "births":89313,
+            "male":45736,
+            "female":43577
         },
         {
             "state":"West Virginia",
             "state_code":54,
-            "births":21268
+            "births":21268,
+            "male":10816,
+            "female":10452
         },
         {
             "state":"Wisconsin",
             "state_code":55,
-            "births":70843
+            "births":70843,
+            "male":36187,
+            "female":34656
         },
         {
             "state":"Wyoming",
             "state_code":56,
-            "births":7881
+            "births":7881,
+            "male":4096,
+            "female":3785
         }
     ]
 }

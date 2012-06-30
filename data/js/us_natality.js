@@ -22,7 +22,6 @@ var color_holder;
     //      their color based on a domain of state births extracted from the
     //      state_births_array.
 
-
 /******************************************************************************\
 | Global Functions                                                             |
 \******************************************************************************/
@@ -95,18 +94,9 @@ function map_init(){
 }
 function populate_names(){
     // www.ssa.gov/oact/babynames/#ht=1
-    var seven_to_nine_male = [
-        'Jacob',
-        'Michael',
-        'Ethan',
-        'Joshua',
-        'Daniel'];
-    var seven_to_nine_female = [
-        'Isabella',
-        'Emma',
-        'Emily',
-        'Olivia',
-        'Ava'];
+    var seven_to_nine_male = ['Jacob','Michael','Ethan','Joshua','Daniel'];
+    var seven_to_nine_female = ['Isabella','Emma','Emily','Olivia','Ava'];
+
     // NOTE: OPTIMIZE!
      $('male_name_container_body').innerHTML = "<ul>" +
          "<li>" + seven_to_nine_male[0] + "</li>" +
@@ -122,9 +112,50 @@ function populate_names(){
          "<li>" + seven_to_nine_female[3] + "</li>" +
          "<li>" + seven_to_nine_female[4] + "</li></ul>";
 }
+function populate_top_ten(){
+    var top_ten_array = [];
 
+    d3.json("data/json/state_births.json", function(json){
+        for(var i=0;i<json['2007-2009'].length;i++){
+            top_ten_array[i] = [json['2007-2009'][i]['births'],
+                json['2007-2009'][i]['state']];
+        }
+        top_ten_array.sort(function(a,b){return b[0]-a[0];});
+        $('bottom_content_left_container_body').innerHTML = "<ul>" +
+            "<li>" + top_ten_array[0][1] + "<ul><li>" + top_ten_array[0][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[1][1] + "<ul><li>" + top_ten_array[1][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[2][1] + "<ul><li>" + top_ten_array[2][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[3][1] + "<ul><li>" + top_ten_array[3][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[4][1] + "<ul><li>" + top_ten_array[4][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[5][1] + "<ul><li>" + top_ten_array[5][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[6][1] + "<ul><li>" + top_ten_array[6][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[7][1] + "<ul><li>" + top_ten_array[7][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[8][1] + "<ul><li>" + top_ten_array[8][0] + "</li></ul></li>" +
+            "<li>" + top_ten_array[9][1] + "<ul><li>" + top_ten_array[9][0] + "</li></ul></li></ul>";
+    });
+}
+function populate_full_list(){
+    var full_list_array = [];
+
+    d3.json("data/json/state_births.json", function(json){
+        $('bottom_content_right_container_body').innerHTML = "<ul>"
+        for(var i=0;i<json['2007-2009'].length;i++){
+            $('bottom_content_right_container_body').innerHTML +=
+                "<li>" + json['2007-2009'][i]['state'] + "<ul><li>" +
+                    json['2007-2009'][i]['births'] + "</li></ul></li>";
+        }
+        $('bottom_content_right_container_body').innerHTML += "</ul>"
+    });
+}
+function test_pie_chart(){
+    // bl.ocks.org/1346410
+    // bl.ocks.org/1305111
+}
 // Main Function
 function central_init(){
     map_init();
     populate_names();
+    populate_top_ten();
+    populate_full_list();
+    test_pie_chart();
 }
