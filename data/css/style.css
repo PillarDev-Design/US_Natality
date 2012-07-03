@@ -183,9 +183,14 @@
     margin: 3px;
     width: 59%;
 }
-.slice text{
-    font: 16pt sans-serif;
-}
+    #bottom_content_main_container svg{
+        
+        z-index: 9999;
+    }
+    circle {
+        stroke: #000;
+        fill-opacity: .1;
+    }
 #bottom_content_right_container{
     border: 1px solid #ccc;
     float:left;

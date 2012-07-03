@@ -5,6 +5,78 @@
 \******************************************************************************/
 
 /******************************************************************************\
+| Region Definitions (wonder.cdc.gov/wonder/help/Natality.html)                |
+\******************************************************************************/
+// Northeast
+//      Connecticut, Maine, Massachusetts, New Hampshire, New Jersey,
+//      New York, Pennsylvania, Rhode Island, Vermont
+var northeast = [
+        ['Connecticut', 0],
+        ['Maine', 0],
+        ['Massachusetts', 0],
+        ['New Hampshire', 0],
+        ['New Jersey', 0],
+        ['New York', 0],
+        ['Pennsylvania', 0],
+        ['Rhode Island', 0],
+        ['Vermont', 0]];
+// Midwest
+//      Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri,
+//      Nebraska, North Dakota, Ohio, South Dakota, Wisconsin
+var midwest = [
+        ['Illinois', 0],
+        ['Indiana', 0],
+        ['Iowa', 0],
+        ['Kansas', 0],
+        ['Michigan', 0],
+        ['Minnesota', 0],
+        ['Missorui', 0],
+        ['Nebraska', 0],
+        ['North Dakota', 0],
+        ['Ohio', 0],
+        ['South Dakota', 0],
+        ['Wisconsin', 0]];
+// South
+//      Alabama, Arkansas, Delaware, District of Columbia, Florida, Georgia,
+//      Kentucky, Louisiana, Maryland, Mississippi, North Carolina,
+//      Oklahoma, South Carolina, Tennessee, Texas, Viriginia, West Virginia
+var south = [
+        ['Alabama', 0],
+        ['Arkansas', 0],
+        ['Delaware', 0],
+        ['District of Columbia', 0],
+        ['Florida', 0],
+        ['Georgia', 0],
+        ['Kentucky', 0],
+        ['Louisiana', 0],
+        ['Maryland', 0],
+        ['Mississippi', 0],
+        ['North Carolina', 0],
+        ['Oklahoma', 0],
+        ['South Carolina', 0],
+        ['Tennessee', 0],
+        ['Texas', 0],
+        ['Virginia', 0],
+        ['West Virginia', 0]];
+// West
+//      Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana,
+//      Nevada, New Mexico, Oregon, Utah, Washington, Wyoming
+var west = [
+        ['Alaska', 0],
+        ['Arizona', 0],
+        ['California', 0],
+        ['Colorado', 0],
+        ['Hawaii', 0],
+        ['Idaho', 0],
+        ['Montana', 0],
+        ['Nevada', 0],
+        ['New Mexico', 0],
+        ['Oregon', 0],
+        ['Utah', 0],
+        ['Washington', 0],
+        ['Wyoming', 0]];
+
+/******************************************************************************\
 | Global Variables                                                             |
 \******************************************************************************/
 var state_births_array;
@@ -150,6 +222,133 @@ function populate_full_list(){
 function test_pie_chart(){
     // bl.ocks.org/1346410
     // bl.ocks.org/1305111
+
+    /* Section Works for an Example of a Circle Packing procedure.
+    // Assign the regions the current population of the year(s).
+    d3.json("data/json/state_births.json", function(json){
+        for(var i=0; i<json['2007-2009'].length; i++){
+            // northeast
+            for(var s=0; s<northeast.length; s++){
+                if(json['2007-2009'][i]['state'] === northeast[s][0]){
+                    northeast[s][1] = json['2007-2009'][i]['births'];
+                }
+            }
+            // midwest
+            for(var s=0; s<midwest.length; s++){
+                if(json['2007-2009'][i]['state'] === midwest[s][0]){
+                    midwest[s][1] = json['2007-2009'][i]['births'];
+                }
+            }
+            // south
+            for(var s=0; s<south.length; s++){
+                if(json['2007-2009'][i]['state'] === south[s][0]){
+                    south[s][1] = json['2007-2009'][i]['births'];
+                }
+            }
+            // west
+            for(var s=0; s<west.length; s++){
+                if(json['2007-2009'][i]['state'] === west[s][0]){
+                    west[s][1] = json['2007-2009'][i]['births'];
+                }
+            }
+            
+        }
+    });
+
+    var data = {
+        children: [
+            {value: 1.94},
+            {value: 0.42},
+            {value: 0},
+            {value: 3.95},
+            {value: 0.06},
+            {value: 0.91}
+        ]
+    };
+   
+    var width = 500,
+        height = 500;
+    var pack = d3.layout.pack()
+        .sort(d3.descending)
+        .size([width, height]);
+    var svg = d3.select("#bottom_content_main_container").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+    svg.data([data]).selectAll(".node")
+        .data(pack.nodes)
+        .enter()
+        .append("circle")
+        .attr("class", "node")
+        .attr("transform", function(d){ return "translate(" + d.x + "," + d.y + ")"; })
+        .attr("r", function(d){ return (d.r); });
+    */
+    
+    function arcTween(a){
+        var i = d3.interpolate(this._current, a);
+        this._current = i(0);
+        return function(t){ return arc(i(t)); };
+    }
+
+    var data1 = [53245,28479,19697,24037,40245],
+        data2 = [200,200,200,200,200],
+        data = data1;
+    
+    var formatted_data = [
+            ['Alabama', 62475, [ 31750, 30725]],
+            ['Alaska', 11324, [5965, 5359]]
+        ];
+    var new_data = formatted_data[0][2];
+
+    console.log(formatted_data);
+    console.log(new_data);
+
+    var width = $('bottom_content_main_container').getStyle("width");
+    width = width.substring(0, width.length - 2);
+    var height = $('bottom_content_main_container').getStyle("height");
+    height = height.substring(0, height.length - 2);
+
+    var w = (width - 100),
+        h = (height - 20),
+        r = Math.min(w, h) / 2,
+        color = d3.scale.category20()
+            .range(['#17becf', '#f7b6d2']),
+        donut = d3.layout.pie().sort(null),
+        arc = d3.svg.arc().innerRadius(r/2).outerRadius(r - 10);
+
+    var svg = d3.select("#bottom_content_main_container").append("svg:svg")
+        .attr("width", w)
+        .attr("height", h)
+        .append("svg:g")
+        .attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
+
+    svg.append("svg:text")
+        .data(new_data)
+        .attr("dy", ".35em")
+        .attr("text-anchor", "middle")
+        .text(function(d){
+            var temp_text;
+            for(var i=0; i < formatted_data.length; i++){
+                if(d === formatted_data[i][2][0]){
+                    temp_text = formatted_data[i][0]; 
+                }
+            }
+            return temp_text;
+        });
+
+    var arcs = svg.selectAll("path")
+        .data(donut(new_data))
+        .enter().append("svg:path")
+        .attr("fill", function(d, i){ return color(i); })
+        .attr("d", arc)
+        .each(function(d){ this._current = d; });
+
+    d3.select("#bottom_content_main_container").on("click", function(){
+        data = data === formatted_data[0][2] ? formatted_data[1][2] : formatted_data[0][2];
+        arcs = arcs.data(donut(data));
+        arcs.transition().duration(750).attrTween("d", arcTween);
+        console.log(data[0]);
+
+    });
 }
 // Main Function
 function central_init(){
