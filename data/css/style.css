@@ -1,13 +1,15 @@
 /*******************************\
  * style.css                   *
 \*******************************/
-
+body{
+    font-family: 'The Girl Next Door', cursive;
+}
 /*******************************\
  * Page Layout Organization    *
 \*******************************/
 #site_container{
     height: 1200px;
-    width: 100%;
+    width: 1249px;
 }
 #main_left_container{
     border-right: #ED2960 1px solid;
@@ -37,9 +39,11 @@
     height: 14%;
 }
     #content_top_title{
-        bottom: 0px;
-        left: 20px;
-        position: relative;
+        font-size:3em;
+        left:300px;
+        position:absolute;
+        top:110px;
+        z-index:9999;
     }
 #content{
     background: url(../img/lined_paper.png) repeat;
@@ -184,12 +188,56 @@
     width: 59%;
 }
     #bottom_content_main_container svg{
-        
+        font: 10px sans-serif;
+        text-align: center;
         z-index: 9999;
     }
-    circle {
-        stroke: #000;
-        fill-opacity: .1;
+    #main_container_national_pie{
+        height:420px;
+        width:420px;
+    }
+    #main_container_northeast_pie{
+        font: 10px sans-serif;
+        height: 320px;
+        position: absolute;
+        right: 175px;
+        text-align: center;
+        top: 0px;
+        width: 320px;
+        z-index: 9999;
+    }
+    #main_container_west_pie{
+        font: 10px sans-serif;
+        height: 320px;
+        position: absolute;
+        right: 410px;
+        text-align: center;
+        top: 5px;
+        width: 320px;
+        z-index: 9999;
+
+    }
+    #main_container_midwest_pie{
+        font: 10px sans-serif;
+        height: 320px;
+        position: absolute;
+        right: 550px;
+        text-align: center;
+        top: 150px;
+        width: 320px;
+        z-index: 9999;
+
+    }
+    #main_container_south_pie{
+        font: 10px sans-serif;
+        height: 320px;
+        position: absolute;
+        right:555px;
+        text-align: center;
+        top:370px;
+        width: 320px;
+        z-index: 9999;
+
     }
 #bottom_content_right_container{
     border: 1px solid #ccc;

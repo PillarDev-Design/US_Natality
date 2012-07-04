@@ -144,7 +144,7 @@ function map_init(){
     var state_color = d3.scale
         .linear()
         .domain([6110, 527020])
-        .range(['brown','steelblue']);
+        .range(['#E5F5F9','#2CA25F']);
 
     d3.json("data/json/us-states.json", function(json){
         map_states_array = json;
@@ -219,136 +219,302 @@ function populate_full_list(){
         $('bottom_content_right_container_body').innerHTML += "</ul>"
     });
 }
-function test_pie_chart(){
-    // bl.ocks.org/1346410
-    // bl.ocks.org/1305111
 
-    /* Section Works for an Example of a Circle Packing procedure.
-    // Assign the regions the current population of the year(s).
-    d3.json("data/json/state_births.json", function(json){
-        for(var i=0; i<json['2007-2009'].length; i++){
-            // northeast
-            for(var s=0; s<northeast.length; s++){
-                if(json['2007-2009'][i]['state'] === northeast[s][0]){
-                    northeast[s][1] = json['2007-2009'][i]['births'];
-                }
-            }
-            // midwest
-            for(var s=0; s<midwest.length; s++){
-                if(json['2007-2009'][i]['state'] === midwest[s][0]){
-                    midwest[s][1] = json['2007-2009'][i]['births'];
-                }
-            }
-            // south
-            for(var s=0; s<south.length; s++){
-                if(json['2007-2009'][i]['state'] === south[s][0]){
-                    south[s][1] = json['2007-2009'][i]['births'];
-                }
-            }
-            // west
-            for(var s=0; s<west.length; s++){
-                if(json['2007-2009'][i]['state'] === west[s][0]){
-                    west[s][1] = json['2007-2009'][i]['births'];
-                }
-            }
-            
+function default_region_charts(){
+    // United States (Large Circle)
+    d3.csv("data/json/national_births.csv", function(csv){
+        var m = 10,
+            r = 200,
+            z = d3.scale.category20c();
+        
+        var pie = d3.layout.pie()
+            .value(function(d){ return +d.count; })
+            .sort(function(a,b){ return b.count - a.count; });
+        
+        var circle_arc = d3.svg.arc()
+            .innerRadius(r/2)
+            .outerRadius(r);
+        
+        var states = d3.nest()
+            .key(function(d){ return d.country; })
+            .entries(csv);
+        
+        var circle_svg = d3.select("#main_container_national_pie").selectAll("div")
+            .data(states)
+            .enter().append("div")
+                .style("display", "inline-block")
+                .style("width", (r+m) * 2 + "px")
+                .style("height", (r+m) * 2 + "px")
+                .style("bottom", "-170px")
+                .style("right", "-190px")
+                .style("position","relative")
+            .append("svg:svg")
+                .attr("width", (r+m) * 2)
+                .attr("height", (r+m) * 2)
+            .append("svg:g")
+                .attr("transform", "translate(" + (r+m) + "," + (r+m) + ")");
+        
+        circle_svg.append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .style("font", "50px")
+            .text("United States");
+
+        var g = circle_svg.selectAll("g")
+            .data(function(d){ return pie(d.values); })
+            .enter().append("svg:g");
+        
+        g.append("svg:path")
+            .attr("d", circle_arc)
+            .style("fill", function(d){ return z(d.data.count); })
+            .style("border", "1px solid black")
+            .append("svg:title")
+            .text(function(d){ return d.data.state + ": " + d.data.count; });
+
+        g.filter(function(d){ return d.endAngle - d.startAngle > .10; }).append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d){ return "translate(" + circle_arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
+            .text(function(d){ return d.data.state; });
+
+        function angle(d){
+            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            return a > 90 ? a - 180 : a;
         }
     });
 
-    var data = {
-        children: [
-            {value: 1.94},
-            {value: 0.42},
-            {value: 0},
-            {value: 3.95},
-            {value: 0.06},
-            {value: 0.91}
-        ]
-    };
-   
-    var width = 500,
-        height = 500;
-    var pack = d3.layout.pack()
-        .sort(d3.descending)
-        .size([width, height]);
-    var svg = d3.select("#bottom_content_main_container").append("svg")
-        .attr("width", width)
-        .attr("height", height);
-    svg.data([data]).selectAll(".node")
-        .data(pack.nodes)
-        .enter()
-        .append("circle")
-        .attr("class", "node")
-        .attr("transform", function(d){ return "translate(" + d.x + "," + d.y + ")"; })
-        .attr("r", function(d){ return (d.r); });
-    */
-    
-    function arcTween(a){
-        var i = d3.interpolate(this._current, a);
-        this._current = i(0);
-        return function(t){ return arc(i(t)); };
-    }
+    // Northeast (Smaller Circle)
+    d3.csv("data/json/northeast_births.csv", function(csv){
+        var m = 10,
+            r = 90,
+            z = d3.scale.category20c();
+        
+        var pie = d3.layout.pie()
+            .value(function(d){ return +d.count; })
+            .sort(function(a,b){ return b.count - a.count; });
+        
+        var circle_arc = d3.svg.arc()
+            .innerRadius(r/3.8)
+            .outerRadius(r);
+        
+        var states = d3.nest()
+            .key(function(d){ return d.region; })
+            .entries(csv);
+        
+        var circle_svg = d3.select("#main_container_northeast_pie").selectAll("div")
+            .data(states)
+            .enter().append("div")
+                .style("display", "inline-block")
+                .style("width", (r+m) * 2 + "px")
+                .style("height", (r+m) * 2 + "px")
+                .style("position","relative")
+            .append("svg:svg")
+                .attr("width", (r+m) * 2)
+                .attr("height", (r+m) * 2)
+            .append("svg:g")
+                .attr("transform", "translate(" + (r+m) + "," + (r+m) + ")");
+        
+        circle_svg.append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .text(function(d){ return d.key; });
 
-    var data1 = [53245,28479,19697,24037,40245],
-        data2 = [200,200,200,200,200],
-        data = data1;
-    
-    var formatted_data = [
-            ['Alabama', 62475, [ 31750, 30725]],
-            ['Alaska', 11324, [5965, 5359]]
-        ];
-    var new_data = formatted_data[0][2];
+        var g = circle_svg.selectAll("g")
+            .data(function(d){ return pie(d.values); })
+            .enter().append("svg:g");
+        
+        g.append("svg:path")
+            .attr("d", circle_arc)
+            .style("fill", function(d){ return z(d.data.state); })
+            .append("svg:title")
+            .text(function(d){ return d.data.state + ": " + d.data.count; });
 
-    console.log(formatted_data);
-    console.log(new_data);
+        g.filter(function(d){ return d.endAngle - d.startAngle > .2; }).append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d){ return "translate(" + circle_arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
+            .text(function(d){ return d.data.state; });
 
-    var width = $('bottom_content_main_container').getStyle("width");
-    width = width.substring(0, width.length - 2);
-    var height = $('bottom_content_main_container').getStyle("height");
-    height = height.substring(0, height.length - 2);
-
-    var w = (width - 100),
-        h = (height - 20),
-        r = Math.min(w, h) / 2,
-        color = d3.scale.category20()
-            .range(['#17becf', '#f7b6d2']),
-        donut = d3.layout.pie().sort(null),
-        arc = d3.svg.arc().innerRadius(r/2).outerRadius(r - 10);
-
-    var svg = d3.select("#bottom_content_main_container").append("svg:svg")
-        .attr("width", w)
-        .attr("height", h)
-        .append("svg:g")
-        .attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
-
-    svg.append("svg:text")
-        .data(new_data)
-        .attr("dy", ".35em")
-        .attr("text-anchor", "middle")
-        .text(function(d){
-            var temp_text;
-            for(var i=0; i < formatted_data.length; i++){
-                if(d === formatted_data[i][2][0]){
-                    temp_text = formatted_data[i][0]; 
-                }
-            }
-            return temp_text;
-        });
-
-    var arcs = svg.selectAll("path")
-        .data(donut(new_data))
-        .enter().append("svg:path")
-        .attr("fill", function(d, i){ return color(i); })
-        .attr("d", arc)
-        .each(function(d){ this._current = d; });
-
-    d3.select("#bottom_content_main_container").on("click", function(){
-        data = data === formatted_data[0][2] ? formatted_data[1][2] : formatted_data[0][2];
-        arcs = arcs.data(donut(data));
-        arcs.transition().duration(750).attrTween("d", arcTween);
-        console.log(data[0]);
-
+        function angle(d){
+            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            return a > 90 ? a - 180 : a;
+        }
     });
+
+    // West (Smaller Circle)
+    d3.csv("data/json/west_births.csv", function(csv){
+        var m = 10,
+            r = 90,
+            z = d3.scale.category20c();
+        
+        var pie = d3.layout.pie()
+            .value(function(d){ return +d.count; })
+            .sort(function(a,b){ return b.count - a.count; });
+        
+        var circle_arc = d3.svg.arc()
+            .innerRadius(r/6)
+            .outerRadius(r);
+        
+        var states = d3.nest()
+            .key(function(d){ return d.region; })
+            .entries(csv);
+        
+        var circle_svg = d3.select("#main_container_west_pie").selectAll("div")
+            .data(states)
+            .enter().append("div")
+                .style("display", "inline-block")
+                .style("width", (r+m) * 2 + "px")
+                .style("height", (r+m) * 2 + "px")
+                .style("position","relative")
+            .append("svg:svg")
+                .attr("width", (r+m) * 2)
+                .attr("height", (r+m) * 2)
+            .append("svg:g")
+                .attr("transform", "translate(" + (r+m) + "," + (r+m) + ")");
+        
+        circle_svg.append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .text(function(d){ return d.key; });
+
+        var g = circle_svg.selectAll("g")
+            .data(function(d){ return pie(d.values); })
+            .enter().append("svg:g");
+        
+        g.append("svg:path")
+            .attr("d", circle_arc)
+            .style("fill", function(d){ return z(d.data.state); })
+            .append("svg:title")
+            .text(function(d){ return d.data.state + ": " + d.data.count; });
+
+        g.filter(function(d){ return d.endAngle - d.startAngle > .2; }).append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d){ return "translate(" + circle_arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
+            .text(function(d){ return d.data.state; });
+
+        function angle(d){
+            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            return a > 90 ? a - 180 : a;
+        }
+    });
+
+    // Midwest (Smaller Circle)
+    d3.csv("data/json/midwest_births.csv", function(csv){
+        var m = 10,
+            r = 90,
+            z = d3.scale.category20c();
+        
+        var pie = d3.layout.pie()
+            .value(function(d){ return +d.count; })
+            .sort(function(a,b){ return b.count - a.count; });
+        
+        var circle_arc = d3.svg.arc()
+            .innerRadius(r/4.5)
+            .outerRadius(r);
+        
+        var states = d3.nest()
+            .key(function(d){ return d.region; })
+            .entries(csv);
+        
+        var circle_svg = d3.select("#main_container_midwest_pie").selectAll("div")
+            .data(states)
+            .enter().append("div")
+                .style("display", "inline-block")
+                .style("width", (r+m) * 2 + "px")
+                .style("height", (r+m) * 2 + "px")
+                .style("position","relative")
+            .append("svg:svg")
+                .attr("width", (r+m) * 2)
+                .attr("height", (r+m) * 2)
+            .append("svg:g")
+                .attr("transform", "translate(" + (r+m) + "," + (r+m) + ")");
+        
+        circle_svg.append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .text(function(d){ return d.key; });
+
+        var g = circle_svg.selectAll("g")
+            .data(function(d){ return pie(d.values); })
+            .enter().append("svg:g");
+        
+        g.append("svg:path")
+            .attr("d", circle_arc)
+            .style("fill", function(d){ return z(d.data.state); })
+            .append("svg:title")
+            .text(function(d){ return d.data.state + ": " + d.data.count; });
+
+        g.filter(function(d){ return d.endAngle - d.startAngle > .2; }).append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d){ return "translate(" + circle_arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
+            .text(function(d){ return d.data.state; });
+
+        function angle(d){
+            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            return a > 90 ? a - 180 : a;
+        }
+    });
+
+    // South (Smaller Circle)
+    d3.csv("data/json/south_births.csv", function(csv){
+        var m = 10,
+            r = 90,
+            z = d3.scale.category20c();
+        
+        var pie = d3.layout.pie()
+            .value(function(d){ return +d.count; })
+            .sort(function(a,b){ return b.count - a.count; });
+        
+        var circle_arc = d3.svg.arc()
+            .innerRadius(r/5.5)
+            .outerRadius(r);
+        
+        var states = d3.nest()
+            .key(function(d){ return d.region; })
+            .entries(csv);
+        
+        var circle_svg = d3.select("#main_container_south_pie").selectAll("div")
+            .data(states)
+            .enter().append("div")
+                .style("display", "inline-block")
+                .style("width", (r+m) * 2 + "px")
+                .style("height", (r+m) * 2 + "px")
+                .style("position","relative")
+            .append("svg:svg")
+                .attr("width", (r+m) * 2)
+                .attr("height", (r+m) * 2)
+            .append("svg:g")
+                .attr("transform", "translate(" + (r+m) + "," + (r+m) + ")");
+        
+        circle_svg.append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .text(function(d){ return d.key; });
+
+        var g = circle_svg.selectAll("g")
+            .data(function(d){ return pie(d.values); })
+            .enter().append("svg:g");
+        
+        g.append("svg:path")
+            .attr("d", circle_arc)
+            .style("fill", function(d){ return z(d.data.state); })
+            .append("svg:title")
+            .text(function(d){ return d.data.state + ": " + d.data.count; });
+
+        g.filter(function(d){ return d.endAngle - d.startAngle > .2; }).append("svg:text")
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d){ return "translate(" + circle_arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
+            .text(function(d){ return d.data.state; });
+
+        function angle(d){
+            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            return a > 90 ? a - 180 : a;
+        }
+    });
+
 }
 // Main Function
 function central_init(){
@@ -356,5 +522,5 @@ function central_init(){
     populate_names();
     populate_top_ten();
     populate_full_list();
-    test_pie_chart();
+    default_region_charts();
 }
