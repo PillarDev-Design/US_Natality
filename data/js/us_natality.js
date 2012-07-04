@@ -518,6 +518,7 @@ function default_region_charts(){
 }
 // Main Function
 function central_init(){
+    // These functions are fired on the inital load of the page.
     map_init();
     populate_names();
     populate_top_ten();
