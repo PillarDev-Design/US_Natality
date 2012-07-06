@@ -97,6 +97,13 @@ var color_holder;
 /******************************************************************************\
 | Global Functions                                                             |
 \******************************************************************************/
+function number_with_commas(x){
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while(pattern.text(x))
+        x = x.replace(pattern, "$1,$2");
+    return x;
+}
 function retrieve_year(){
     // This function can be called to return a string of the current year
     //      set selected. Ex - '2007-2009'.
@@ -193,18 +200,19 @@ function populate_top_ten(){
                 json['2007-2009'][i]['state']];
         }
         top_ten_array.sort(function(a,b){return b[0]-a[0];});
-        $('bottom_content_left_container_body').innerHTML = "<ul>" +
-            "<li>" + top_ten_array[0][1] + "<ul><li>" + top_ten_array[0][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[1][1] + "<ul><li>" + top_ten_array[1][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[2][1] + "<ul><li>" + top_ten_array[2][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[3][1] + "<ul><li>" + top_ten_array[3][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[4][1] + "<ul><li>" + top_ten_array[4][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[5][1] + "<ul><li>" + top_ten_array[5][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[6][1] + "<ul><li>" + top_ten_array[6][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[7][1] + "<ul><li>" + top_ten_array[7][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[8][1] + "<ul><li>" + top_ten_array[8][0] + "</li></ul></li>" +
-            "<li>" + top_ten_array[9][1] + "<ul><li>" + top_ten_array[9][0] + "</li></ul></li></ul>";
+        
+        var temp_content = "<ul>";
+        for(var i=0;i<10;i++){
+            temp_content += ("<li>" + top_ten_array[i][1] + "<br /><div class='state_number'>" + top_ten_array[i][0] + "</div></li>");
+        }
+        temp_content += "</ul>";
+        $('bottom_content_left_container_body').innerHTML = temp_content;
+        
     });
+
+    var test_number = 123456;
+    var end_number = number_with_commas(test_number);
+    console.log('end_number: ' + end_number);
 }
 function populate_full_list(){
     var full_list_array = [];
