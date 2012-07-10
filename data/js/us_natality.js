@@ -207,15 +207,44 @@ function populate_top_ten(){
         
         var temp_content = "<ul>";
         for(var i=0;i<10;i++){
-            temp_content += ("<li><div class='state_box'>" + top_ten_array[i][1] + "<br /><div class='state_number'>" + top_ten_array[i][0] + "</div></div></li>");
+            temp_content += ("<li><div id='" +
+                top_ten_array[i][1] + "_box'>" +
+                top_ten_array[i][1] + "<br /><div class='state_number'>" + 
+                top_ten_array[i][0] + "</div></div></li>");
         }
         temp_content += "</ul>";
         $('bottom_content_left_container_body').innerHTML = temp_content;
         
+        $('bottom_content_main_container').addEvent('click', function(){
+            $('main_container_national_pie').fade(1); 
+            $('main_container_northeast_pie').fade(1); 
+            $('main_container_west_pie').fade(1); 
+            $('main_container_midwest_pie').fade(1); 
+            $('main_container_south_pie').fade(1);
+            $('main_container_state_pie').fade(0);
+        });
+        
+        for(var i=0;i<10;i++){
+            var temp_place = '';
+            temp_place = top_ten_array[i][1] + '_box';
+            console.log('temp_place_array: ' + temp_place); 
+
+            add_event_to_state(temp_place);
+        }
     });
     
-    $$('.state_box').addEvent('click', console.log('Clicked'));
-
+}
+function add_event_to_state(state){
+    $(state).addEvent('click', function(){
+        $('main_container_national_pie').fade(0); 
+        $('main_container_northeast_pie').fade(0); 
+        $('main_container_west_pie').fade(0); 
+        $('main_container_midwest_pie').fade(0); 
+        $('main_container_south_pie').fade(0); 
+        $('main_container_state_pie').fade(1);
+        $('main_container_state_pie').innerHTML = ('Currently Loaded: ' +
+            state);
+    });
 }
 function populate_full_list(){
     var full_list_array = [];
@@ -232,6 +261,7 @@ function populate_full_list(){
 }
 
 function default_region_charts(){
+    //$('#main_container_state_pie').fade(0);
     var national_color = d3.scale
         .linear()
         .domain([6110, 527020])
@@ -256,6 +286,7 @@ function default_region_charts(){
         .linear()
         .domain([9040, 401977])
         .range(['#E5F5F9','#2CA25F']);
+
 
     // United States (Large Circle)
     d3.csv("data/json/national_births.csv", function(csv){

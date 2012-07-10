@@ -241,6 +241,7 @@ body{
     height: 99%;
     margin: 3px;
     width: 59%;
+    z-index: 500;
     -moz-box-shadow: 0 15px 40px #e0e0e0 inset;
     -webkit-box-shadow: 0 15px 40px #e0e0e0 inset;
     box-shadow: 0 15px 40px #e0e0e0 inset;
@@ -296,6 +297,12 @@ body{
         width: 200px;
         z-index: 9999;
 
+    }
+    #main_container_state_pie{
+        height: 550px;
+        width: 550px;
+        opacity: 0;
+        visibility: hidden;
     }
 #bottom_content_right_container{
     border: 1px solid #ccc;
