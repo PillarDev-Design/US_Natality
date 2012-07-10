@@ -93,17 +93,12 @@ var color_holder;
     // This variable is used as a placeholder when the states are being applied
     //      their color based on a domain of state births extracted from the
     //      state_births_array.
-
+var return_text;
+    // This variable is used as a palceholder when the states are formed. It
+    //      contains the hover text.
 /******************************************************************************\
 | Global Functions                                                             |
 \******************************************************************************/
-function number_with_commas(x){
-    x = x.toString();
-    var pattern = /(-?\d+)(\d{3})/;
-    while(pattern.text(x))
-        x = x.replace(pattern, "$1,$2");
-    return x;
-}
 function retrieve_year(){
     // This function can be called to return a string of the current year
     //      set selected. Ex - '2007-2009'.
@@ -168,7 +163,17 @@ function map_init(){
                 }
                 return color_holder;
                 })
-            .attr("d", path);
+            .style("stroke", "black")
+            .attr("d", path)
+            .append("svg:title")
+            .text(function(d){ 
+                for(var i=0; i<state_births_array['2007-2009'].length; i++){
+                    if(d.properties.name === state_births_array['2007-2009'][i]['state']){
+                        return_text = (d.properties.name + ": " + state_births_array['2007-2009'][i]['births']);
+                    }
+                }
+                return return_text;
+                });
     });
 }
 function populate_names(){
@@ -176,20 +181,19 @@ function populate_names(){
     var seven_to_nine_male = ['Jacob','Michael','Ethan','Joshua','Daniel'];
     var seven_to_nine_female = ['Isabella','Emma','Emily','Olivia','Ava'];
 
-    // NOTE: OPTIMIZE!
-     $('male_name_container_body').innerHTML = "<ul>" +
-         "<li>" + seven_to_nine_male[0] + "</li>" +
-         "<li>" + seven_to_nine_male[1] + "</li>" +
-         "<li>" + seven_to_nine_male[2] + "</li>" +
-         "<li>" + seven_to_nine_male[3] + "</li>" +
-         "<li>" + seven_to_nine_male[4] + "</li></ul>";
+     var temp_male_content = "<ul>";
+     for(var i=0; i<5; i++){
+        temp_male_content += ("<li>" + seven_to_nine_male[i] + "</li>");
+     }
+     temp_male_content += "</ul>";
+     $('male_name_container_body').innerHTML = temp_male_content;
 
-     $('female_name_container_body').innerHTML = "<ul>" +
-         "<li>" + seven_to_nine_female[0] + "</li>" +
-         "<li>" + seven_to_nine_female[1] + "</li>" +
-         "<li>" + seven_to_nine_female[2] + "</li>" +
-         "<li>" + seven_to_nine_female[3] + "</li>" +
-         "<li>" + seven_to_nine_female[4] + "</li></ul>";
+     var temp_female_content = "<ul>";
+     for(var i=0; i<5; i++){
+        temp_female_content += ("<li>" + seven_to_nine_female[i] + "</li>");
+     }
+     temp_female_content += "</ul>";
+     $('female_name_container_body').innerHTML = temp_female_content;
 }
 function populate_top_ten(){
     var top_ten_array = [];
@@ -203,16 +207,15 @@ function populate_top_ten(){
         
         var temp_content = "<ul>";
         for(var i=0;i<10;i++){
-            temp_content += ("<li>" + top_ten_array[i][1] + "<br /><div class='state_number'>" + top_ten_array[i][0] + "</div></li>");
+            temp_content += ("<li><div class='state_box'>" + top_ten_array[i][1] + "<br /><div class='state_number'>" + top_ten_array[i][0] + "</div></div></li>");
         }
         temp_content += "</ul>";
         $('bottom_content_left_container_body').innerHTML = temp_content;
         
     });
+    
+    $$('.state_box').addEvent('click', console.log('Clicked'));
 
-    var test_number = 123456;
-    var end_number = number_with_commas(test_number);
-    console.log('end_number: ' + end_number);
 }
 function populate_full_list(){
     var full_list_array = [];
@@ -229,6 +232,31 @@ function populate_full_list(){
 }
 
 function default_region_charts(){
+    var national_color = d3.scale
+        .linear()
+        .domain([6110, 527020])
+        .range(['#E5F5F9','#2CA25F']);
+
+    var northeast_color = d3.scale
+        .linear()
+        .domain([6110, 248110])
+        .range(['#E5F5F9','#2CA25F']);
+
+    var midwest_color = d3.scale
+        .linear()
+        .domain([9001, 171163])
+        .range(['#E5F5F9','#2CA25F']);
+
+    var west_color = d3.scale
+        .linear()
+        .domain([7881, 527020])
+        .range(['#E5F5F9','#2CA25F']);
+
+    var south_color = d3.scale
+        .linear()
+        .domain([9040, 401977])
+        .range(['#E5F5F9','#2CA25F']);
+
     // United States (Large Circle)
     d3.csv("data/json/national_births.csv", function(csv){
         var m = 10,
@@ -265,7 +293,8 @@ function default_region_charts(){
         circle_svg.append("svg:text")
             .attr("dy", ".35em")
             .attr("text-anchor", "middle")
-            .style("font", "50px")
+            .style("font-size", "3em")
+            .style("font-family", "'The Girl Next Door', cursive")
             .text("United States");
 
         var g = circle_svg.selectAll("g")
@@ -274,8 +303,8 @@ function default_region_charts(){
         
         g.append("svg:path")
             .attr("d", circle_arc)
-            .style("fill", function(d){ return z(d.data.count); })
-            .style("border", "1px solid black")
+            .style("fill", function(d){ return national_color(d.data.count); })
+            .style("stroke", "black")
             .append("svg:title")
             .text(function(d){ return d.data.state + ": " + d.data.count; });
 
@@ -333,7 +362,8 @@ function default_region_charts(){
         
         g.append("svg:path")
             .attr("d", circle_arc)
-            .style("fill", function(d){ return z(d.data.state); })
+            .style("fill", function(d){ return northeast_color(d.data.count); })
+            .style("stroke", "black")
             .append("svg:title")
             .text(function(d){ return d.data.state + ": " + d.data.count; });
 
@@ -391,7 +421,8 @@ function default_region_charts(){
         
         g.append("svg:path")
             .attr("d", circle_arc)
-            .style("fill", function(d){ return z(d.data.state); })
+            .style("fill", function(d){ return west_color(d.data.count); })
+            .style("stroke", "black")
             .append("svg:title")
             .text(function(d){ return d.data.state + ": " + d.data.count; });
 
@@ -449,7 +480,8 @@ function default_region_charts(){
         
         g.append("svg:path")
             .attr("d", circle_arc)
-            .style("fill", function(d){ return z(d.data.state); })
+            .style("fill", function(d){ return midwest_color(d.data.count); })
+            .style("stroke", "black")
             .append("svg:title")
             .text(function(d){ return d.data.state + ": " + d.data.count; });
 
@@ -507,7 +539,8 @@ function default_region_charts(){
         
         g.append("svg:path")
             .attr("d", circle_arc)
-            .style("fill", function(d){ return z(d.data.state); })
+            .style("fill", function(d){ return south_color(d.data.count); })
+            .style("stroke", "black")
             .append("svg:title")
             .text(function(d){ return d.data.state + ": " + d.data.count; });
 
