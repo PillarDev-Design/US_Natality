@@ -100,7 +100,10 @@ body{
     position: relative;
 }
 #footer_container{
-
+    width: 100%;
+    height: 40px;
+    text-align: right;
+    font-size: 1.5em;
 }
 
 /*******************************\
@@ -201,7 +204,12 @@ body{
     #map_states path:hover{
         stroke: white;
     }
-
+    #click_or_hover{
+        position:absolute;
+        left: 900px;
+        top: 200px;
+        font-size: 2em;
+    }
 /*******************************\
  * bottom_content divisions    *
 \*******************************/
@@ -232,10 +240,21 @@ body{
         #bottom_content_left_container_body ul{
             -webkit-margin-before: 0em !important;
             -webkit-margin-after: 0em !important;
-            -webkit-padding-start: 70px !important;
+            -webkit-padding-start: 40px !important;
         }
+.state_box{
+    border: 3px outset gray;
+    margin-bottom: 3px;
+    text-align: center;
+    cursor: pointer;
+    -moz-box-shadow: 0 15px 40px #e0e0e0 inset;
+    -webkit-box-shadow: 0 15px 40px #e0e0e0 inset;
+    box-shadow: 0 15px 40px #e0e0e0 inset;
+
+}
 #bottom_content_main_container{
     border: 1px solid #ccc;
+    cursor: auto;
     float:left;
     font: 10px sans-serif;
     height: 99%;
@@ -299,10 +318,60 @@ body{
 
     }
     #main_container_state_pie{
-        height: 550px;
-        width: 550px;
+        height: 530px;
+        width: 450px;
         opacity: 0;
         visibility: hidden;
+        position: absolute;
+        top: 25px;
+        left: 275px;
+    }
+    #main_container_state_pie_title{
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        height: 100px;
+        width: 540px;
+        font-family: 'The Girl Next Door', cursive;
+        font-size: 4em;
+        text-align: center;
+        top: 10px;
+        left: 225px;
+    }
+    #male_count_container{
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        top: 210px;
+        left: 580px;
+        font-family: 'The Girl Next Door', cursive;
+        font-size: 4em;
+    }
+        #male_count_title{
+        }
+        #male_count_body{
+        }
+    #female_count_container{
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        top: 210px;
+        left: 340px;
+        font-family: 'The Girl Next Door', cursive;
+        font-size: 4em;
+    }
+        #female_count_title{
+        }
+        #female_count_body{
+        }
+    #click_to_return{
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        font-family: 'The Girl Next Door', cursive;
+        font-size: 4em;
+        top: 500px;
+        left: 365px;
     }
 #bottom_content_right_container{
     border: 1px solid #ccc;
@@ -316,10 +385,18 @@ body{
 }
     #bottom_content_right_container_title{
         height: 7%;
-        width: 99%;
+        font-size: 1.7em;
+        left:10px;
+        height: 7%;
+        width: 180px;
     }
     #bottom_content_right_container_body{
         height: 92%;
         overflow-y:scroll;
-        width: 99%;
+        width: 180px;
     }
+        #bottom_content_right_container_body ul{
+            -webkit-margin-before: 0em !important;
+            -webkit-margin-after: 0em !important;
+            -webkit-padding-start: 40px !important;
+        }
