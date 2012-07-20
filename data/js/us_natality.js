@@ -44,6 +44,10 @@ var return_text;
 var current_state_data = [10,10];
     // This variable will hold the current male-female numbers for the state pie
     //      chart.
+var current_year = '2007-2009';
+var current_domain = [6110, 527020];
+    // Placeholders for the current year and domain ranges.
+
 /******************************************************************************\
 | Global Functions                                                             |
 \******************************************************************************/
@@ -93,7 +97,7 @@ function map_init(){
     // Loaded with the low/high domain of the 2007-2009 births values.
     var state_color = d3.scale
         .linear()
-        .domain([6110, 527020])
+        .domain(current_domain)
         .range(['#E5F5F9','#2CA25F']);
 
     d3.json("data/json/us-states.json", function(json){
@@ -104,9 +108,9 @@ function map_init(){
             .enter()
             .append("path")
             .style("fill", function(d) {
-                for(var i=0; i<state_births_array['2007-2009'].length; i++){
-                    if(d.properties.name === state_births_array['2007-2009'][i]['state']){
-                        color_holder =  state_color(state_births_array['2007-2009'][i]['births']);
+                for(var i=0; i<state_births_array[current_year].length; i++){
+                    if(d.properties.name === state_births_array[current_year][i]['state']){
+                        color_holder =  state_color(state_births_array[current_year][i]['births']);
                     }
                 }
                 return color_holder;
@@ -116,9 +120,9 @@ function map_init(){
             .attr("d", path)
             .append("svg:title")
             .text(function(d){ 
-                for(var i=0; i<state_births_array['2007-2009'].length; i++){
-                    if(d.properties.name === state_births_array['2007-2009'][i]['state']){
-                        return_text = (d.properties.name + ": " + state_births_array['2007-2009'][i]['births']);
+                for(var i=0; i<state_births_array[current_year].length; i++){
+                    if(d.properties.name === state_births_array[current_year][i]['state']){
+                        return_text = (d.properties.name + ": " + state_births_array[current_year][i]['births']);
                     }
                 }
                 return return_text;
@@ -134,13 +138,13 @@ function map_init(){
             $('main_container_state_pie').innerHTML = "";
             
             // Load in the new data - [male#, female#]
-            for(var i=0; i<state_births_array['2007-2009'].length; i++){
-                if(state_name === state_births_array['2007-2009'][i]['state']){
-                    var data_array = [state_births_array['2007-2009'][i]['male'],
-                        state_births_array['2007-2009'][i]['female']];
+            for(var i=0; i<state_births_array[current_year].length; i++){
+                if(state_name === state_births_array[current_year][i]['state']){
+                    var data_array = [state_births_array[current_year][i]['male'],
+                        state_births_array[current_year][i]['female']];
                     create_state_pie(data_array);
-                    $('male_count_body').innerHTML = (state_births_array['2007-2009'][i]['male']);
-                    $('female_count_body').innerHTML = (state_births_array['2007-2009'][i]['female']);
+                    $('male_count_body').innerHTML = (state_births_array[current_year][i]['male']);
+                    $('female_count_body').innerHTML = (state_births_array[current_year][i]['female']);
                 }
             }
         });
@@ -195,9 +199,9 @@ function populate_top_ten(){
     var top_ten_array = [];
 
     d3.json("data/json/state_births.json", function(json){
-        for(var i=0;i<json['2007-2009'].length;i++){
-            top_ten_array[i] = [json['2007-2009'][i]['births'],
-                json['2007-2009'][i]['state']];
+        for(var i=0;i<json[current_year].length;i++){
+            top_ten_array[i] = [json[current_year][i]['births'],
+                json[current_year][i]['state']];
         }
         top_ten_array.sort(function(a,b){return b[0]-a[0];});
         
@@ -227,9 +231,9 @@ function populate_full_list(){
     var full_list_array = [];
     
     d3.json("data/json/state_births.json", function(json){
-        for(var i=0;i<json['2007-2009'].length;i++){
-            full_list_array[i] = [json['2007-2009'][i]['births'],
-                json['2007-2009'][i]['state']];
+        for(var i=0;i<json[current_year].length;i++){
+            full_list_array[i] = [json[current_year][i]['births'],
+                json[current_year][i]['state']];
         }
         
         var temp_content = "<ul>";
@@ -262,13 +266,13 @@ function add_event_to_state(state){
         $('main_container_state_pie').innerHTML = "";
         
         // Load in the new data - [male#, female#]
-        for(var i=0; i<state_births_array['2007-2009'].length; i++){
-            if(state_name === state_births_array['2007-2009'][i]['state']){
-                var data_array = [state_births_array['2007-2009'][i]['male'],
-                    state_births_array['2007-2009'][i]['female']];
+        for(var i=0; i<state_births_array[current_year].length; i++){
+            if(state_name === state_births_array[current_year][i]['state']){
+                var data_array = [state_births_array[current_year][i]['male'],
+                    state_births_array[current_year][i]['female']];
                 create_state_pie(data_array);
-                $('male_count_body').innerHTML = (state_births_array['2007-2009'][i]['male']);
-                $('female_count_body').innerHTML = (state_births_array['2007-2009'][i]['female']);
+                $('male_count_body').innerHTML = (state_births_array[current_year][i]['male']);
+                $('female_count_body').innerHTML = (state_births_array[current_year][i]['female']);
             }
         }
     });
@@ -300,7 +304,7 @@ function create_state_pie(state_data){
 function default_region_charts(){
     var national_color = d3.scale
         .linear()
-        .domain([6110, 527020])
+        .domain(current_domain)
         .range(['#E5F5F9','#2CA25F']);
 
     var northeast_color = d3.scale
@@ -626,8 +630,67 @@ function default_region_charts(){
     });
 
 }
+// Detection and adjustment
+function adjust_data(){
+    var cur_year = retrieve_year();
+    console.log('Adjusting data: ' + cur_year);
+    
+    // Set Year
+    current_year = cur_year;
+    // Set Domain
+    if(cur_year === '2007-2009'){
+        current_domain = [6110, 527020];
+    }else if(cur_year === '2003-2006'){
+        current_domain = [6511, 562440];
+    }
+    
+    // Temporary Fade
+    $('top_content_right_container').fade(0);
+    $('bottom_content_main_container').fade(0);
+    $('top_content_left_container_name_container').fade(0);
+    $('bottom_content_left_container').fade(0);
+    $('bottom_content_right_container').fade(0);
+    
+    setTimeout(function(){ 
+        // Clear HTML
+        $('male_name_container_body').innerHTML = '';
+        $('female_name_container_body').innerHTML = '';
+        $('top_content_right_container').innerHTML = "<div id='click_or_hover'>Click or Hover</div>";
+        $('bottom_content_left_container_body').innerHTML = '';
+        $('bottom_content_right_container_body').innerHTML = '';
+        $('main_container_national_pie').innerHTML = '';
+        $('main_container_northeast_pie').innerHTML = '';
+        $('main_container_west_pie').innerHTML = '';
+        $('main_container_midwest_pie').innerHTML = '';
+        $('main_container_south_pie').innerHTML = '';
+        $('main_container_state_pie').innerHTML = '';
+        $('main_container_state_pie_title').innerHTML = '';
+        $('male_count_body').innerHTML = '';
+        $('female_count_body').innerHTML = '';
+
+        // Fire Functions
+        map_init();
+        populate_names();
+        populate_top_ten();
+        populate_full_list();
+        default_region_charts();
+    }, 1000);
+
+    // Fade back in
+    setTimeout(function(){
+        $('top_content_right_container').fade(1);
+        $('bottom_content_main_container').fade(1);
+        $('top_content_left_container_name_container').fade(1);
+        $('bottom_content_left_container').fade(1);
+        $('bottom_content_right_container').fade(1);
+    }, 1000);
+}
 // Main Function
 function central_init(){
+    $('year_selector').addEvent('change', function(){
+        adjust_data();
+    });
+
     // These functions are fired on the inital load of the page.
     map_init();
     populate_names();
