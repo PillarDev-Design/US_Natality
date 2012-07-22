@@ -129,39 +129,64 @@ function map_init(){
                 });
         states.selectAll("path").on("click", function(d){
             add_middle_content();
-
-            var state_name = d.properties.name;
+	    
+	    setTimeout(function(){
+                var state_name = d.properties.name;
            
-            $('main_container_state_pie_title').innerHTML = state_name;
+                $('main_container_state_pie_title').innerHTML = state_name;
 
-            // Clear the div in preparation for the new pie chart.
-            $('main_container_state_pie').innerHTML = "";
+                // Clear the div in preparation for the new pie chart.
+                $('main_container_state_pie').innerHTML = "";
             
-            // Load in the new data - [male#, female#]
-            for(var i=0; i<state_births_array[current_year].length; i++){
-                if(state_name === state_births_array[current_year][i]['state']){
-                    var data_array = [state_births_array[current_year][i]['male'],
-                        state_births_array[current_year][i]['female']];
-                    create_state_pie(data_array);
-                    $('male_count_body').innerHTML = (state_births_array[current_year][i]['male']);
-                    $('female_count_body').innerHTML = (state_births_array[current_year][i]['female']);
+                // Load in the new data - [male#, female#]
+                for(var i=0; i<state_births_array[current_year].length; i++){
+                    if(state_name === state_births_array[current_year][i]['state']){
+                        var data_array = [state_births_array[current_year][i]['male'],
+                            state_births_array[current_year][i]['female']];
+                        create_state_pie(data_array);
+                        $('male_count_body').innerHTML = (state_births_array[current_year][i]['male']);
+                        $('female_count_body').innerHTML = (state_births_array[current_year][i]['female']);
+                    }
                 }
-            }
+	    }, 430);
         });
     });
 }
 function add_middle_content(){
-    $('main_container_national_pie').fade(0); 
-    $('main_container_northeast_pie').fade(0); 
-    $('main_container_west_pie').fade(0); 
-    $('main_container_midwest_pie').fade(0); 
-    $('main_container_south_pie').fade(0); 
-    $('main_container_state_pie').fade(1);
-    $('main_container_state_pie_title').fade(1);
-    $('male_count_container').fade(1);
-    $('female_count_container').fade(1);
-    $('click_to_return').fade(1);
-    $('bottom_content_main_container').setStyle('cursor','pointer');
+    // The following check is added to see if the content is already visible.
+    // If it is, then we need to repeat a fade process to make it seem smooth,
+    // as opposed to a quick change with no animation.
+    if($('main_container_national_pie').getStyle("visibility") === "hidden"){
+        // Fade Out 
+	$('main_container_state_pie').fade(0);
+	$('main_container_state_pie_title').fade(0);
+    	$('male_count_container').fade(0);
+	$('female_count_container').fade(0);
+	$('click_to_return').fade(0);
+        // Fade In
+	setTimeout(function(){
+	    $('main_container_state_pie').fade(1);
+	    $('main_container_state_pie_title').fade(1);
+	    $('male_count_container').fade(1);
+	    $('female_count_container').fade(1);
+	    $('click_to_return').fade(1);
+	}, 1000);
+    // It's coming straight from the removed view, so process as normal
+    }else{
+	$('main_container_national_pie').fade(0); 
+	$('main_container_northeast_pie').fade(0); 
+	$('main_container_west_pie').fade(0); 
+	$('main_container_midwest_pie').fade(0); 
+	$('main_container_south_pie').fade(0); 
+	setTimeout(function(){
+	    $('main_container_state_pie').fade(1);
+	    $('main_container_state_pie_title').fade(1);
+	    $('male_count_container').fade(1);
+	    $('female_count_container').fade(1);
+	    $('click_to_return').fade(1);
+	    $('bottom_content_main_container').setStyle('cursor','pointer');
+	}, 500);
+    }
 }
 function remove_middle_content(){
     $('main_container_national_pie').fade(1); 
@@ -270,25 +295,27 @@ function populate_full_list(){
 function add_event_to_state(state){
     $(state).addEvent('click', function(){
         add_middle_content();
+	
+	setTimeout(function(){
+	    // Ex - Florida_box -> Florida
+	    var state_name = state.substring(0, state.length - 4);
+	       
+	    $('main_container_state_pie_title').innerHTML = state_name;
 
-        // Ex - Florida_box -> Florida
-        var state_name = state.substring(0, state.length - 4);
-       
-        $('main_container_state_pie_title').innerHTML = state_name;
-
-        // Clear the div in preparation for the new pie chart.
-        $('main_container_state_pie').innerHTML = "";
-        
-        // Load in the new data - [male#, female#]
-        for(var i=0; i<state_births_array[current_year].length; i++){
-            if(state_name === state_births_array[current_year][i]['state']){
-                var data_array = [state_births_array[current_year][i]['male'],
-                    state_births_array[current_year][i]['female']];
-                create_state_pie(data_array);
-                $('male_count_body').innerHTML = (state_births_array[current_year][i]['male']);
-                $('female_count_body').innerHTML = (state_births_array[current_year][i]['female']);
-            }
-        }
+	    // Clear the div in preparation for the new pie chart.
+	    $('main_container_state_pie').innerHTML = "";
+		
+	    // Load in the new data - [male#, female#]
+	    for(var i=0; i<state_births_array[current_year].length; i++){
+	        if(state_name === state_births_array[current_year][i]['state']){
+	            var data_array = [state_births_array[current_year][i]['male'],
+		        state_births_array[current_year][i]['female']];
+		    create_state_pie(data_array);
+		    $('male_count_body').innerHTML = (state_births_array[current_year][i]['male']);
+		    $('female_count_body').innerHTML = (state_births_array[current_year][i]['female']);
+		}
+	    }
+	}, 430);
     });
 }
 function create_state_pie(state_data){
@@ -333,7 +360,6 @@ function default_region_charts(){
 	south_file;
     // Populate Variables
     if(current_year === '2007-2009'){
-	console.log('Detected 07-09');
 	// Northeast
 	northeast_color = d3.scale
 	    .linear()
@@ -361,7 +387,6 @@ function default_region_charts(){
 	west_file = "data/json/west_births.csv";
 	south_file = "data/json/south_births.csv";
     }else if(current_year === '2003-2006'){
-	console.log('Detected 03-06');
 	// Northeast
 	northeast_color = d3.scale
 	    .linear()
@@ -698,7 +723,6 @@ function default_region_charts(){
 // Detection and adjustment
 function adjust_data(){
     var cur_year = retrieve_year();
-    console.log('Adjusting data: ' + cur_year);
     
     // Set Year
     current_year = cur_year;
