@@ -41,7 +41,7 @@ var color_holder;
 var return_text;
     // This variable is used as a palceholder when the states are formed. It
     //      contains the hover text.
-var current_state_data = [10,10];
+var current_state_data = [1,10];
     // This variable will hold the current male-female numbers for the state pie
     //      chart.
 var current_year = '2007-2009';
@@ -316,36 +316,87 @@ function create_state_pie(state_data){
         .each(function(d){ this._current = d; });
 }
 function default_region_charts(){
+    // Year Detection, set data accordingly
     var national_color = d3.scale
         .linear()
         .domain(current_domain)
         .range(['#E5F5F9','#2CA25F']);
+    // Variable Declaration
+    var northeast_color,
+	midwest_color,
+	west_color,
+	south_color,
+	national_file,
+	northeast_file,
+	midwest_file,
+	west_file,
+	south_file;
+    // Populate Variables
+    if(current_year === '2007-2009'){
+	console.log('Detected 07-09');
+	// Northeast
+	northeast_color = d3.scale
+	    .linear()
+            .domain([6110, 248110])
+            .range(['#E5F5F9','#2CA25F']);
+	// Midwest
+	midwest_color = d3.scale
+	    .linear()
+            .domain([9001, 171163])
+            .range(['#E5F5F9','#2CA25F']);
+	// West
+        west_color = d3.scale
+            .linear()
+            .domain([7881, 527020])
+            .range(['#E5F5F9','#2CA25F']);
+	// South
+        south_color = d3.scale
+            .linear()
+            .domain([9040, 401977])
+            .range(['#E5F5F9','#2CA25F']);
+	// Populate CSV File Names
+	national_file = "data/json/national_births.csv";
+	northeast_file = "data/json/northeast_births.csv";
+	midwest_file = "data/json/midwest_births.csv";
+	west_file = "data/json/west_births.csv";
+	south_file = "data/json/south_births.csv";
+    }else if(current_year === '2003-2006'){
+	console.log('Detected 03-06');
+	// Northeast
+	northeast_color = d3.scale
+	    .linear()
+	    .domain([6511,250104])
+	    .range(['#E5F5F9','#2CA25F']);
+	// Midwest
+	midwest_color = d3.scale
+	    .linear()
+	    .domain([8621,180572])
+	    .range(['#E5F5F9','#2CA25F']);
+	// West
+	west_color = d3.scale
+	    .linear()
+	    .domain([7672,562440])
+	    .range(['#E5F5F9','#2CA25F']);
+	// South
+	south_color = d3.scale
+	    .linear()
+	    .domain([8523,399603])
+	    .range(['#E5F5F9','#2CA25F']);
+	// Populate CSV File Names
+	national_file = "data/json/national_three_six.csv";
+	northeast_file = "data/json/northeast_three_six.csv";
+	midwest_file = "data/json/midwest_three_six.csv";
+	west_file = "data/json/west_three_six.csv";
+	south_file = "data/json/south_three_six.csv";
+    }
 
-    var northeast_color = d3.scale
-        .linear()
-        .domain([6110, 248110])
-        .range(['#E5F5F9','#2CA25F']);
 
-    var midwest_color = d3.scale
-        .linear()
-        .domain([9001, 171163])
-        .range(['#E5F5F9','#2CA25F']);
-
-    var west_color = d3.scale
-        .linear()
-        .domain([7881, 527020])
-        .range(['#E5F5F9','#2CA25F']);
-
-    var south_color = d3.scale
-        .linear()
-        .domain([9040, 401977])
-        .range(['#E5F5F9','#2CA25F']);
 
     // Create the Blank State Chart
     create_state_pie(current_state_data);
 
     // United States (Large Circle)
-    d3.csv("data/json/national_births.csv", function(csv){
+    d3.csv(national_file, function(csv){
         var m = 10,
             r = 200,
             z = d3.scale.category20c();
@@ -408,7 +459,7 @@ function default_region_charts(){
     });
 
     // Northeast (Smaller Circle)
-    d3.csv("data/json/northeast_births.csv", function(csv){
+    d3.csv(northeast_file, function(csv){
         var m = 10,
             r = 90,
             z = d3.scale.category20c();
@@ -467,7 +518,7 @@ function default_region_charts(){
     });
 
     // West (Smaller Circle)
-    d3.csv("data/json/west_births.csv", function(csv){
+    d3.csv(west_file, function(csv){
         var m = 10,
             r = 90,
             z = d3.scale.category20c();
@@ -526,7 +577,7 @@ function default_region_charts(){
     });
 
     // Midwest (Smaller Circle)
-    d3.csv("data/json/midwest_births.csv", function(csv){
+    d3.csv(midwest_file, function(csv){
         var m = 10,
             r = 90,
             z = d3.scale.category20c();
@@ -585,7 +636,7 @@ function default_region_charts(){
     });
 
     // South (Smaller Circle)
-    d3.csv("data/json/south_births.csv", function(csv){
+    d3.csv(south_file, function(csv){
         var m = 10,
             r = 90,
             z = d3.scale.category20c();
